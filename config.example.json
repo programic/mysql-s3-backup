@@ -1,0 +1,17 @@
+{
+  "aws": {
+    "access_key_id": "",
+    "secret_access_key": "",
+    "region": ""
+  },
+  "servers": [
+    {
+      "host": "",
+      "user": "",
+      "password": "",
+      "port": "",
+      "exclude": "defaultdb information_schema mysql performance_schema sys",
+      "s3_bucket": ""
+    }
+  ]
+}
