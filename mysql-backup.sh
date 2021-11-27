@@ -4,8 +4,7 @@ set -e
 
 CONFIG=$(cat config.json)
 AWS=$(echo "${CONFIG}" | jq -r '.aws')
-BACKUP_DATE=`date +"%Y-%m-%dT%H:%M:%S%Z"`
-TMP_FOLDER="/tmp"
+BACKUP_DATE=$(date +"%Y-%m-%dT%H:%M:%S%Z")
 
 # Set environment vars for awscli
 export AWS_ACCESS_KEY_ID=$(echo "${AWS}" | jq -r '.access_key_id')
@@ -30,7 +29,7 @@ for SERVER_ENCODED in $(echo "${CONFIG}" | jq -r '.servers[] | @base64'); do
     -s --skip-column-names)
 
   for DATABASE in ${DATABASES}; do
-    DUMP_FILE=${TMP_FOLDER}/mysqldump_${BACKUP_DATE}_${DATABASE}.sql.gz
+    DUMP_FILE=$(mktemp)
 
     mysqldump ${PARAMS} --set-gtid-purged=OFF --triggers --routines --events --single-transaction --quick \
       --databases ${DATABASE} \
