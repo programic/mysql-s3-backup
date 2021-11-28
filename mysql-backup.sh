@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -e
+set -o errexit
+set -o pipefail
+set -o nounset
 
 config=$(cat config.json)
 aws=$(echo "${config}" | jq -r '.aws')
