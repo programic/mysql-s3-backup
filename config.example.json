@@ -1,4 +1,8 @@
 {
+  "pingback": {
+    "url": "",
+    "retry": 3
+  },
   "aws": {
     "access_key_id": "",
     "secret_access_key": "",
