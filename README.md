@@ -14,3 +14,10 @@ $ apt install jq mysql-client awscli
 $ crontab -e
 0 */4 * * * cd /path-to-script-folder && bash mysql-backup.sh >> /dev/null 2>&1
 ```
+
+## Mysql privileges
+In order to backup the database, the backup user needs the following privileges.
+
+```mysql
+GRANT SELECT, TRIGGER, EVENT ON *.* TO `backup_user`@`%`;
+```
