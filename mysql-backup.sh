@@ -5,10 +5,10 @@ set -o pipefail
 set -o nounset
 
 config=$(cat config.json)
-aws=$(echo "${config}" | jq -r '.aws')
 backup_date=$(date +"%Y-%m-%dT%H:%M:%S%Z")
 
 # Set environment vars for awscli
+aws=$(echo "${config}" | jq -r '.aws')
 export AWS_ACCESS_KEY_ID=$(echo "${aws}" | jq -r '.access_key_id')
 export AWS_SECRET_ACCESS_KEY=$(echo "${aws}" | jq -r '.secret_access_key')
 export AWS_DEFAULT_REGION=$(echo "${aws}" | jq -r '.region')
