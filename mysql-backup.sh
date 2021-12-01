@@ -23,7 +23,7 @@ for server_encoded in $(echo "${config}" | jq -r '.servers[] | @base64'); do
     --host=$(echo "${server}" | jq -r '.host')
     --port=$(echo "${server}" | jq -r '.port')
     --user=$(echo "${server}" | jq -r '.user')
-    --password=\"$(echo "${server}" | jq -r '.password')\"
+    --password=$(echo "${server}" | jq -r '.password')
   )
 
   # Get available databases, skip excluded
