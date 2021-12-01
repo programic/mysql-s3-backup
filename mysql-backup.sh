@@ -23,12 +23,12 @@ for server_encoded in $(echo "${config}" | jq -r '.servers[] | @base64'); do
     --host=$(echo "${server}" | jq -r '.host')
     --port=$(echo "${server}" | jq -r '.port')
     --user=$(echo "${server}" | jq -r '.user')
-    --password=$(echo "${server}" | jq -r '.password')
+    --password=\"$(echo "${server}" | jq -r '.password')\"
   )
 
   # Get available databases, skip excluded
   exclude_sql="('$(echo "${exclude}" | sed -e "s/\s\+/','/g")')"
-  databases=$(mysql "${login_params[@]}" \
+  databases=$(mysql ${login_params[@]} \
     -e "SELECT schema_name FROM information_schema.schemata WHERE schema_name NOT IN ${exclude_sql}" \
     -s --skip-column-names)
 
@@ -37,7 +37,7 @@ for server_encoded in $(echo "${config}" | jq -r '.servers[] | @base64'); do
     dump_file=$(mktemp)
 
     # Backup single database
-    mysqldump "${login_params[@]}"  \
+    mysqldump ${login_params[@]} \
       --set-gtid-purged=OFF --triggers --routines --events --single-transaction --quick \
       --databases ${database} \
       | gzip > ${dump_file}
