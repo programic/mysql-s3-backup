@@ -19,5 +19,5 @@ $ crontab -e
 In order to backup the database, the backup user needs the following privileges.
 
 ```mysql
-GRANT SELECT, TRIGGER, EVENT ON *.* TO `backup_user`@`%`;
+GRANT SELECT, TRIGGER, EVENT, PROCESS ON *.* TO `backup_user`@`%`;
 ```
