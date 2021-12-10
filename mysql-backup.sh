@@ -43,7 +43,7 @@ for server_encoded in $(echo "${config}" | jq -r '.servers[] | @base64'); do
       | gzip > ${dump_file}
 
     # Upload backup to AWS S3
-    aws s3 mv ${dump_file} s3://${s3_bucket}/${backup_date}/${database}.sql.gz
+    aws s3 mv ${dump_file} s3://${s3_bucket}/${backup_date}/${database}_${backup_date}.sql.gz
   done
 
 done
